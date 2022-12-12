@@ -29,6 +29,7 @@ class LoginScreen extends StatelessWidget {
   /// {@macro ui.auth.screens.responsive_page.desktop_layout_direction}
   final TextDirection? desktopLayoutDirection;
   final String? email;
+  final String? password;
 
   /// A callback that is being called when the form was submitted.
   final EmailFormSubmitCallback? onSubmit;
@@ -63,6 +64,7 @@ class LoginScreen extends StatelessWidget {
     this.sideBuilder,
     this.desktopLayoutDirection = TextDirection.ltr,
     this.email,
+    this.password,
     this.onSubmit,
     this.showAuthActionSwitch,
     this.resizeToAvoidBottomInset = false,
@@ -86,6 +88,7 @@ class LoginScreen extends StatelessWidget {
           providers: providers,
           oauthButtonVariant: oauthButtonVariant,
           email: email,
+          password: password,
           onSubmit: onSubmit,
           showAuthActionSwitch: showAuthActionSwitch,
           subtitleBuilder: subtitleBuilder,

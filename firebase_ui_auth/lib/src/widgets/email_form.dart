@@ -94,6 +94,9 @@ class EmailForm extends StatelessWidget {
   /// An email that should be pre-filled in the form.
   final String? email;
 
+  /// An password that should be pre-filled in the form.
+  final String? password;
+
   /// A label that would be used for the "Sign in" button.
   final String? actionButtonLabelOverride;
 
@@ -105,6 +108,7 @@ class EmailForm extends StatelessWidget {
     this.provider,
     this.onSubmit,
     this.email,
+    this.password,
     this.actionButtonLabelOverride,
   }) : super(key: key);
 
@@ -115,6 +119,7 @@ class EmailForm extends StatelessWidget {
       auth: auth,
       provider: provider,
       email: email,
+      password: password,
       onSubmit: onSubmit,
       actionButtonLabelOverride: actionButtonLabelOverride,
     );
@@ -136,6 +141,7 @@ class _SignInFormContent extends StatefulWidget {
   /// {@macro ui.auth.auth_action}
   final AuthAction? action;
   final String? email;
+  final String? password;
   final EmailAuthProvider? provider;
 
   final String? actionButtonLabelOverride;
@@ -146,6 +152,7 @@ class _SignInFormContent extends StatefulWidget {
     this.onSubmit,
     this.action,
     this.email,
+    this.password,
     this.provider,
     this.actionButtonLabelOverride,
   }) : super(key: key);
@@ -202,7 +209,7 @@ class _SignInFormContentState extends State<_SignInFormContent> {
     const spacer = SizedBox(height: 16);
 
     emailCtrl.text = widget.email ?? '';
-    passwordCtrl.text = 'cheese';
+    passwordCtrl.text = widget.password ?? '';
 
     final children = [
       EmailInput(

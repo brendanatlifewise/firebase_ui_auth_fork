@@ -29,6 +29,9 @@ class SignInScreen extends MultiProviderScreen {
   /// A email that [EmailForm] would be pre-filled with.
   final String? email;
 
+  /// A password that [EmailForm] would be pre-filled with.
+  final String? password;
+
   /// A callback that is being called when the form was submitted.
   final EmailFormSubmitCallback? onSubmit;
 
@@ -109,6 +112,7 @@ class SignInScreen extends MultiProviderScreen {
     this.resizeToAvoidBottomInset = true,
     this.showAuthActionSwitch,
     this.email,
+    this.password,
     this.onSubmit,
     this.subtitleBuilder,
     this.footerBuilder,

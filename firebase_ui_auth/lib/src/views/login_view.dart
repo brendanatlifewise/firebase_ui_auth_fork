@@ -33,6 +33,7 @@ class LoginView extends StatefulWidget {
   final OAuthButtonVariant? oauthButtonVariant;
   final bool? showTitle;
   final String? email;
+  final String? password;
 
   /// A callback that is being called when the form was submitted.
   final EmailFormSubmitCallback? onSubmit;
@@ -66,6 +67,7 @@ class LoginView extends StatefulWidget {
     this.auth,
     this.showTitle = true,
     this.email,
+    this.password,
     this.onSubmit,
     this.showAuthActionSwitch,
     this.footerBuilder,
@@ -223,6 +225,7 @@ class _LoginViewState extends State<LoginView> {
                   action: _action,
                   provider: provider,
                   email: widget.email,
+                  password: widget.password,
                   onSubmit: widget.onSubmit,
                   actionButtonLabelOverride: widget.actionButtonLabelOverride,
                 )

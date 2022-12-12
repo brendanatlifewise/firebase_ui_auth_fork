@@ -162,6 +162,7 @@ class SignInScreen extends MultiProviderScreen {
         desktopLayoutDirection: desktopLayoutDirection,
         oauthButtonVariant: oauthButtonVariant,
         email: email,
+        password: password,
         onSubmit: onSubmit,
         resizeToAvoidBottomInset: resizeToAvoidBottomInset,
         showAuthActionSwitch: showAuthActionSwitch,

@@ -201,18 +201,19 @@ class _SignInFormContentState extends State<_SignInFormContent> {
     final l = FirebaseUILocalizations.labelsOf(context);
     const spacer = SizedBox(height: 16);
 
+    emailCtrl.text = widget.email ?? '';
+    passwordCtrl.text = 'cheese';
+
     final children = [
-      if (widget.email == null) ...[
-        EmailInput(
-          focusNode: emailFocusNode,
-          controller: emailCtrl,
-          onSubmitted: (v) {
-            formKey.currentState?.validate();
-            FocusScope.of(context).requestFocus(passwordFocusNode);
-          },
-        ),
-        spacer,
-      ],
+      EmailInput(
+        focusNode: emailFocusNode,
+        controller: emailCtrl,
+        onSubmitted: (v) {
+          formKey.currentState?.validate();
+          FocusScope.of(context).requestFocus(passwordFocusNode);
+        },
+      ),
+      spacer,
       PasswordInput(
         focusNode: passwordFocusNode,
         controller: passwordCtrl,

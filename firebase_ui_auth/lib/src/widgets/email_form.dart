@@ -97,6 +97,12 @@ class EmailForm extends StatelessWidget {
   /// An password that should be pre-filled in the form.
   final String? password;
 
+  /// Access to controller for the email field in [EmailForm].
+  final TextEditingController? emailCtrl;
+
+  /// Access to controller for the password field in [EmailForm].
+  final TextEditingController? passwordCtrl;
+
   /// A label that would be used for the "Sign in" button.
   final String? actionButtonLabelOverride;
 
@@ -109,6 +115,8 @@ class EmailForm extends StatelessWidget {
     this.onSubmit,
     this.email,
     this.password,
+    this.emailCtrl,
+    this.passwordCtrl,
     this.actionButtonLabelOverride,
   }) : super(key: key);
 
@@ -120,6 +128,8 @@ class EmailForm extends StatelessWidget {
       provider: provider,
       email: email,
       password: password,
+      emailCtrl: emailCtrl,
+      passwordCtrl: passwordCtrl,
       onSubmit: onSubmit,
       actionButtonLabelOverride: actionButtonLabelOverride,
     );
@@ -143,6 +153,8 @@ class _SignInFormContent extends StatefulWidget {
   final String? email;
   final String? password;
   final EmailAuthProvider? provider;
+  final TextEditingController? emailCtrl;
+  final TextEditingController? passwordCtrl;
 
   final String? actionButtonLabelOverride;
 
@@ -153,6 +165,8 @@ class _SignInFormContent extends StatefulWidget {
     this.action,
     this.email,
     this.password,
+    this.emailCtrl,
+    this.passwordCtrl,
     this.provider,
     this.actionButtonLabelOverride,
   }) : super(key: key);
@@ -162,8 +176,14 @@ class _SignInFormContent extends StatefulWidget {
 }
 
 class _SignInFormContentState extends State<_SignInFormContent> {
-  final emailCtrl = TextEditingController();
-  final passwordCtrl = TextEditingController();
+  _SignInFormContentState() {
+    // If controllers passed in, set them here for use in widget.
+    emailCtrl = widget.emailCtrl ?? TextEditingController();
+    passwordCtrl = widget.passwordCtrl ?? TextEditingController();
+  }
+
+  TextEditingController emailCtrl;
+  TextEditingController passwordCtrl;
   final confirmPasswordCtrl = TextEditingController();
   final formKey = GlobalKey<FormState>();
 

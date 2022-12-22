@@ -32,6 +32,12 @@ class SignInScreen extends MultiProviderScreen {
   /// A password that [EmailForm] would be pre-filled with.
   final String? password;
 
+  /// Access to controller for the email field in [EmailForm].
+  final TextEditingController? emailCtrl;
+
+  /// Access to controller for the password field in [EmailForm].
+  final TextEditingController? passwordCtrl;
+
   /// A callback that is being called when the form was submitted.
   final EmailFormSubmitCallback? onSubmit;
 
@@ -113,6 +119,8 @@ class SignInScreen extends MultiProviderScreen {
     this.showAuthActionSwitch,
     this.email,
     this.password,
+    this.emailCtrl,
+    this.passwordCtrl,
     this.onSubmit,
     this.subtitleBuilder,
     this.footerBuilder,
@@ -167,6 +175,8 @@ class SignInScreen extends MultiProviderScreen {
         oauthButtonVariant: oauthButtonVariant,
         email: email,
         password: password,
+        emailCtrl: emailCtrl,
+        passwordCtrl: passwordCtrl,
         onSubmit: onSubmit,
         resizeToAvoidBottomInset: resizeToAvoidBottomInset,
         showAuthActionSwitch: showAuthActionSwitch,

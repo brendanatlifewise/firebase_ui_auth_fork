@@ -176,14 +176,20 @@ class _SignInFormContent extends StatefulWidget {
 }
 
 class _SignInFormContentState extends State<_SignInFormContent> {
-  _SignInFormContentState() {
+  @override
+  void initState() {
+    super.initState();
     // If controllers passed in, set them here for use in widget.
-    emailCtrl = widget.emailCtrl ?? TextEditingController();
-    passwordCtrl = widget.passwordCtrl ?? TextEditingController();
+    if (widget.emailCtrl != null) {
+      emailCtrl = widget.emailCtrl as TextEditingController;
+    }
+    if (widget.passwordCtrl != null) {
+      emailCtrl = widget.passwordCtrl as TextEditingController;
+    }
   }
 
-  TextEditingController emailCtrl;
-  TextEditingController passwordCtrl;
+  TextEditingController emailCtrl = TextEditingController();
+  TextEditingController passwordCtrl = TextEditingController();
   final confirmPasswordCtrl = TextEditingController();
   final formKey = GlobalKey<FormState>();
 

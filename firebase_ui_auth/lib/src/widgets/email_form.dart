@@ -184,7 +184,7 @@ class _SignInFormContentState extends State<_SignInFormContent> {
       emailCtrl = widget.emailCtrl as TextEditingController;
     }
     if (widget.passwordCtrl != null) {
-      emailCtrl = widget.passwordCtrl as TextEditingController;
+      passwordCtrl = widget.passwordCtrl as TextEditingController;
     }
   }
 

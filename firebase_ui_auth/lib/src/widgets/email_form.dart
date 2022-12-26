@@ -186,6 +186,13 @@ class _SignInFormContentState extends State<_SignInFormContent> {
     if (widget.passwordCtrl != null) {
       passwordCtrl = widget.passwordCtrl as TextEditingController;
     }
+
+    // Called after this Widget's build. Needed so that top widget is not deactivated
+    // when setting the text fields of the controllers.
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      emailCtrl.text = widget.email ?? '';
+      passwordCtrl.text = widget.password ?? '';
+    });
   }
 
   TextEditingController emailCtrl = TextEditingController();
@@ -233,9 +240,6 @@ class _SignInFormContentState extends State<_SignInFormContent> {
   Widget build(BuildContext context) {
     final l = FirebaseUILocalizations.labelsOf(context);
     const spacer = SizedBox(height: 16);
-
-    emailCtrl.text = widget.email ?? '';
-    passwordCtrl.text = widget.password ?? '';
 
     final children = [
       EmailInput(

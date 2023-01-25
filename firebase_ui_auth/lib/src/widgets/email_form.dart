@@ -98,9 +98,11 @@ class EmailForm extends StatelessWidget {
   final String? password;
 
   /// Access to controller for the email field in [EmailForm].
+  /// If no controller passed in, EmailForm creates its own interal controller.
   final TextEditingController? emailCtrl;
 
   /// Access to controller for the password field in [EmailForm].
+  /// If no controller passed in, EmailForm creates its own interal controller.
   final TextEditingController? passwordCtrl;
 
   /// When true, allows user to toggle whether to obscure password.

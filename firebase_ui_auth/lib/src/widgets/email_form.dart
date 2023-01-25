@@ -103,6 +103,11 @@ class EmailForm extends StatelessWidget {
   /// Access to controller for the password field in [EmailForm].
   final TextEditingController? passwordCtrl;
 
+  /// When true, allows user to toggle whether to obscure password.
+  /// Can't use right now, until Cupertino updates to allow equivalent of
+  /// Material UI's Input Decoration. It is currently non-functioning.
+  final bool? obscurePasswordToggle;
+
   /// A label that would be used for the "Sign in" button.
   final String? actionButtonLabelOverride;
 
@@ -115,6 +120,7 @@ class EmailForm extends StatelessWidget {
     this.onSubmit,
     this.email,
     this.password,
+    this.obscurePasswordToggle,
     this.emailCtrl,
     this.passwordCtrl,
     this.actionButtonLabelOverride,
@@ -130,6 +136,8 @@ class EmailForm extends StatelessWidget {
       password: password,
       emailCtrl: emailCtrl,
       passwordCtrl: passwordCtrl,
+      // Commented out cause can't use right now.
+      //obscurePasswordToggle: obscurePasswordToggle,
       onSubmit: onSubmit,
       actionButtonLabelOverride: actionButtonLabelOverride,
     );
@@ -156,6 +164,9 @@ class _SignInFormContent extends StatefulWidget {
   final TextEditingController? emailCtrl;
   final TextEditingController? passwordCtrl;
 
+  /// When true, allows user to toggle whether to obscure password.
+  final bool? obscurePasswordToggle;
+
   final String? actionButtonLabelOverride;
 
   const _SignInFormContent({
@@ -167,6 +178,7 @@ class _SignInFormContent extends StatefulWidget {
     this.password,
     this.emailCtrl,
     this.passwordCtrl,
+    this.obscurePasswordToggle,
     this.provider,
     this.actionButtonLabelOverride,
   }) : super(key: key);
@@ -179,19 +191,24 @@ class _SignInFormContentState extends State<_SignInFormContent> {
   @override
   void initState() {
     super.initState();
-    // If controllers passed in, set them here for use in widget.
-    if (widget.emailCtrl != null) {
-      emailCtrl = widget.emailCtrl as TextEditingController;
-    }
-    if (widget.passwordCtrl != null) {
-      passwordCtrl = widget.passwordCtrl as TextEditingController;
-    }
-
+    // If controllers passed in, use them.
+    // Assign email and password passed in to proper controller if they were passed in.
     // Called after this Widget's build. Needed so that top widget is not deactivated
     // when setting the text fields of the controllers.
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      emailCtrl.text = widget.email ?? '';
-      passwordCtrl.text = widget.password ?? '';
+      // If controllers passed in but email/password not, do not assign a value to the controllers.
+
+      // Null check, so can safely cast as String.
+      if (widget.email != null) {
+        widget.emailCtrl == null
+            ? emailCtrl.text = widget.email as String
+            : widget.emailCtrl?.text = widget.email as String;
+      }
+      if (widget.password != null) {
+        widget.passwordCtrl == null
+            ? passwordCtrl.text = widget.password as String
+            : widget.passwordCtrl?.text = widget.password as String;
+      }
     });
   }
 
@@ -222,15 +239,17 @@ class _SignInFormContentState extends State<_SignInFormContent> {
 
   void _submit([String? password]) {
     final ctrl = AuthController.ofType<EmailAuthController>(context);
-    final email = (widget.email ?? emailCtrl.text).trim();
+    final email =
+        (widget.email ?? (widget.emailCtrl?.text ?? emailCtrl.text)).trim();
 
     if (formKey.currentState!.validate()) {
       if (widget.onSubmit != null) {
-        widget.onSubmit!(email, passwordCtrl.text, context);
+        widget.onSubmit!(
+            email, widget.passwordCtrl?.text ?? passwordCtrl.text, context);
       } else {
         ctrl.setEmailAndPassword(
           email,
-          password ?? passwordCtrl.text,
+          password ?? (widget.passwordCtrl?.text ?? passwordCtrl.text),
         );
       }
     }
@@ -244,7 +263,7 @@ class _SignInFormContentState extends State<_SignInFormContent> {
     final children = [
       EmailInput(
         focusNode: emailFocusNode,
-        controller: emailCtrl,
+        controller: widget.emailCtrl ?? emailCtrl,
         onSubmitted: (v) {
           formKey.currentState?.validate();
           FocusScope.of(context).requestFocus(passwordFocusNode);
@@ -253,7 +272,8 @@ class _SignInFormContentState extends State<_SignInFormContent> {
       spacer,
       PasswordInput(
         focusNode: passwordFocusNode,
-        controller: passwordCtrl,
+        controller: widget.passwordCtrl ?? passwordCtrl,
+        obscurePasswordToggle: widget.obscurePasswordToggle,
         onSubmit: _submit,
         placeholder: l.passwordInputLabel,
       ),
@@ -267,7 +287,8 @@ class _SignInFormContentState extends State<_SignInFormContent> {
                   FirebaseUIAction.ofType<ForgotPasswordAction>(context);
 
               if (navAction != null) {
-                navAction.callback(context, emailCtrl.text);
+                navAction.callback(
+                    context, widget.emailCtrl?.text ?? emailCtrl.text);
               } else {
                 showForgotPasswordScreen(
                   context: context,
@@ -290,7 +311,7 @@ class _SignInFormContentState extends State<_SignInFormContent> {
           validator: Validator.validateAll([
             NotEmpty(l.confirmPasswordIsRequiredErrorText),
             ConfirmPasswordValidator(
-              passwordCtrl,
+              widget.passwordCtrl ?? passwordCtrl,
               l.confirmPasswordDoesNotMatchErrorText,
             )
           ]),

@@ -38,6 +38,11 @@ class SignInScreen extends MultiProviderScreen {
   /// Access to controller for the password field in [EmailForm].
   final TextEditingController? passwordCtrl;
 
+  /// When true, allows user to toggle whether to obscure password.
+  /// Can't use right now, until Cupertino updates to allow equivalent of
+  /// Material UI's Input Decoration. It is currently non-functioning.
+  final bool? obscurePasswordToggle;
+
   /// A callback that is being called when the form was submitted.
   final EmailFormSubmitCallback? onSubmit;
 
@@ -121,6 +126,7 @@ class SignInScreen extends MultiProviderScreen {
     this.password,
     this.emailCtrl,
     this.passwordCtrl,
+    this.obscurePasswordToggle,
     this.onSubmit,
     this.subtitleBuilder,
     this.footerBuilder,
@@ -177,6 +183,8 @@ class SignInScreen extends MultiProviderScreen {
         password: password,
         emailCtrl: emailCtrl,
         passwordCtrl: passwordCtrl,
+        // Commented out cause can't use right now.
+        //obscurePasswordToggle: obscurePasswordToggle,
         onSubmit: onSubmit,
         resizeToAvoidBottomInset: resizeToAvoidBottomInset,
         showAuthActionSwitch: showAuthActionSwitch,

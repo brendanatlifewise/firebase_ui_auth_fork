@@ -16,6 +16,11 @@ class PasswordInput extends StatelessWidget {
   /// Allows to respond to changes in the input's value.
   final TextEditingController controller;
 
+  /// When true, allows user to toggle whether to obscure password.
+  /// Can't use right now, until Cupertino updates to allow equivalent of
+  /// Material UI's Input Decoration. It is currently non-functioning.
+  final bool? obscurePasswordToggle;
+
   /// A callback that is being called when the input is submitted.
   final void Function(String value) onSubmit;
 
@@ -36,6 +41,7 @@ class PasswordInput extends StatelessWidget {
     Key? key,
     required this.focusNode,
     required this.controller,
+    this.obscurePasswordToggle,
     required this.onSubmit,
     required this.placeholder,
     this.autofillHints = const [AutofillHints.password],
@@ -50,6 +56,8 @@ class PasswordInput extends StatelessWidget {
       autofillHints: autofillHints,
       focusNode: focusNode,
       controller: controller,
+      // Commented out cause can't use right now.
+      // obscureText: obscurePasswordToggle ?? true,
       obscureText: true,
       enableSuggestions: false,
       validator: validator ?? NotEmpty(l.passwordIsRequiredErrorText).validate,

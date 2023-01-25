@@ -33,6 +33,11 @@ class LoginScreen extends StatelessWidget {
   final TextEditingController? emailCtrl;
   final TextEditingController? passwordCtrl;
 
+  /// When true, allows user to toggle whether to obscure password.
+  /// Can't use right now, until Cupertino updates to allow equivalent of
+  /// Material UI's Input Decoration. It is currently non-functioning.
+  final bool? obscurePasswordToggle;
+
   /// A callback that is being called when the form was submitted.
   final EmailFormSubmitCallback? onSubmit;
 
@@ -69,6 +74,7 @@ class LoginScreen extends StatelessWidget {
     this.password,
     this.emailCtrl,
     this.passwordCtrl,
+    this.obscurePasswordToggle,
     this.onSubmit,
     this.showAuthActionSwitch,
     this.resizeToAvoidBottomInset = false,
@@ -95,6 +101,8 @@ class LoginScreen extends StatelessWidget {
           password: password,
           emailCtrl: emailCtrl,
           passwordCtrl: passwordCtrl,
+          // Commented out cause can't use right now.
+          //obscurePasswordToggle: obscurePasswordToggle,
           onSubmit: onSubmit,
           showAuthActionSwitch: showAuthActionSwitch,
           subtitleBuilder: subtitleBuilder,

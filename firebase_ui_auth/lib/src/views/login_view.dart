@@ -37,6 +37,11 @@ class LoginView extends StatefulWidget {
   final TextEditingController? emailCtrl;
   final TextEditingController? passwordCtrl;
 
+  /// When true, allows user to toggle whether to obscure password.
+  /// Can't use right now, until Cupertino updates to allow equivalent of
+  /// Material UI's Input Decoration. It is currently non-functioning.
+  final bool? obscurePasswordToggle;
+
   /// A callback that is being called when the form was submitted.
   final EmailFormSubmitCallback? onSubmit;
 
@@ -72,6 +77,7 @@ class LoginView extends StatefulWidget {
     this.password,
     this.emailCtrl,
     this.passwordCtrl,
+    this.obscurePasswordToggle,
     this.onSubmit,
     this.showAuthActionSwitch,
     this.footerBuilder,
@@ -230,6 +236,8 @@ class _LoginViewState extends State<LoginView> {
                   provider: provider,
                   email: widget.email,
                   password: widget.password,
+                  // Commented out cause can't use right now.
+                  //obscurePasswordToggle: widget.obscurePasswordToggle,
                   emailCtrl: widget.emailCtrl,
                   passwordCtrl: widget.passwordCtrl,
                   onSubmit: widget.onSubmit,
